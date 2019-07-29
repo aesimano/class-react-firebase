@@ -40,6 +40,8 @@ export default (state = initialState, action) => {
         scream => scream.screamId === action.payload.screamId
       );
       state.screams[index] = action.payload;
+      if (state.scream.screamId === state.screams[index].screamId)
+        state.scream = state.screams[index];
       return { ...state };
     case DELETE_SCREAM:
       index = state.screams.findIndex(
