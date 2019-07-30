@@ -113,7 +113,7 @@ class ScreamDialog extends Component {
           <span>{commentCount} Comments</span>
         </Grid>
         <CommentForm screamId={screamId} />
-        {/* NOTE / TODO: GET /scream/<screamId>/like does not return comments. */}
+        {/* NOTE: GET /scream/<screamId>/like does not return comments. */}
         {comments && <Comments comments={comments} />}
       </Grid>
     );

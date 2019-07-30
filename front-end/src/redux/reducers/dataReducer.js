@@ -41,10 +41,13 @@ export default (state = initialState, action) => {
         scream => scream.screamId === action.payload.screamId
       );
       state.screams[index] = action.payload;
-      if (state.scream.screamId === action.payload.screamId)
-        state.scream = action.payload;
-      console.log(`action.payload ${JSON.stringify(action.payload)}`);
-      console.log(`state.scream ${JSON.stringify(state.scream)}`);
+
+      if (state.scream.screamId === action.payload.screamId) {
+        // action.payload does not contain comments so we need to spread state.scream to keep them.
+        // Otherwise app will break when we like a scream from the ScreamDialog.
+        state.scream = { ...state.scream, ...action.payload };
+      }
+
       return { ...state };
     case DELETE_SCREAM:
       index = state.screams.findIndex(
