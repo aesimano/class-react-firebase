@@ -10,11 +10,16 @@ import StaticProfile from "../components/StaticProfile";
 class User extends Component {
   state = {
     profile: null,
-    handle: null
+    handle: null,
+    screamIdParam: null
   };
 
   componentDidMount() {
     const handle = this.props.match.params.handle; // Get user handle from the route parameter.
+    const screamId = this.props.match.params.screamId; // This may or may not exist
+
+    if (screamId) this.setState({ screamIdParam: screamId });
+
     this.props.getUserData(handle); // Sets the user's screams to the global state.
     this.setState({ handle });
     // The user profile is just static, so it doesn't need to be stored in
@@ -31,14 +36,20 @@ class User extends Component {
 
   render() {
     const { screams, loading } = this.props.data;
-    const { handle } = this.state;
+    const { handle, screamIdParam } = this.state;
 
     const screamsMarkup = loading ? (
       <p>Loading data...</p>
-    ) : screams === null ? (
+    ) : screams === null || screams.length === 0 ? (
       <p>No screams from {handle}</p>
-    ) : (
+    ) : !screamIdParam ? (
       screams.map(scream => <Scream key={scream.screamId} scream={scream} />)
+    ) : (
+      screams.map(scream => {
+        if (scream.screamId !== screamIdParam)
+          return <Scream key={scream.screamId} scream={scream} />;
+        else return <Scream key={scream.screamId} scream={scream} openDialog />;
+      })
     );
 
     const staticProfileMarkup = this.state.profile ? (
