@@ -5,6 +5,8 @@ import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import CustomButton from "./CustomButton";
 import LikeButton from "./LikeButton";
+import Comments from "./Comments";
+import CommentForm from "./CommentForm";
 
 // Material UI
 import Dialog from "@material-ui/core/Dialog";
@@ -20,14 +22,10 @@ import ChatIcon from "@material-ui/icons/Chat";
 
 // Redux
 import { connect } from "react-redux";
-import { getScream } from "../redux/actions/dataActions";
+import { getScream, clearErrors } from "../redux/actions/dataActions";
 
 const styles = theme => ({
   ...theme,
-  invisibleSeparator: {
-    border: "none",
-    margin: 4
-  },
   profileImage: {
     maxWidth: 200,
     height: 200,
@@ -64,6 +62,7 @@ class ScreamDialog extends Component {
 
   handleClose = () => {
     this.setState({ open: false });
+    this.props.clearErrors();
   };
 
   render() {
@@ -76,7 +75,8 @@ class ScreamDialog extends Component {
         likeCount,
         commentCount,
         userImage,
-        userHandle
+        userHandle,
+        comments
       },
       UI: { loading }
     } = this.props;
@@ -112,6 +112,9 @@ class ScreamDialog extends Component {
           </CustomButton>
           <span>{commentCount} Comments</span>
         </Grid>
+        <CommentForm screamId={screamId} />
+        {/* NOTE / TODO: GET /scream/<screamId>/like does not return comments. */}
+        {comments && <Comments comments={comments} />}
       </Grid>
     );
 
@@ -147,6 +150,7 @@ class ScreamDialog extends Component {
 }
 
 ScreamDialog.propTypes = {
+  clearErrors: PropTypes.func.isRequired,
   getScream: PropTypes.func.isRequired,
   screamId: PropTypes.string.isRequired,
   userHandle: PropTypes.string.isRequired,
@@ -160,7 +164,8 @@ const mapStateToProps = state => ({
 });
 
 const mapActionsToProps = {
-  getScream
+  getScream,
+  clearErrors
 };
 
 export default connect(

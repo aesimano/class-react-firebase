@@ -5,7 +5,8 @@ import {
   LOADING_DATA,
   DELETE_SCREAM,
   POST_SCREAM,
-  SET_SCREAM
+  SET_SCREAM,
+  SUBMIT_COMMENT
 } from "../types";
 
 const initialState = {
@@ -40,16 +41,16 @@ export default (state = initialState, action) => {
         scream => scream.screamId === action.payload.screamId
       );
       state.screams[index] = action.payload;
-      if (state.scream.screamId === state.screams[index].screamId)
-        state.scream = state.screams[index];
+      if (state.scream.screamId === action.payload.screamId)
+        state.scream = action.payload;
+      console.log(`action.payload ${JSON.stringify(action.payload)}`);
+      console.log(`state.scream ${JSON.stringify(state.scream)}`);
       return { ...state };
     case DELETE_SCREAM:
       index = state.screams.findIndex(
         scream => scream.screamId === action.payload
       );
-      console.log(`deleteing index ${index} for screamId ${action.payload}`);
       state.screams.splice(index, 1);
-      console.log(state);
       return {
         ...state
       };
@@ -58,6 +59,15 @@ export default (state = initialState, action) => {
         ...state,
         screams: [action.payload, ...state.screams]
       };
+    case SUBMIT_COMMENT:
+      return {
+        ...state,
+        scream: {
+          ...state.scream,
+          comments: [action.payload, ...state.scream.comments]
+        }
+      };
+
     default:
       return state;
   }
