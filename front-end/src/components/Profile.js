@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import EditDetails from "./EditDetails";
 import CustomButton from "./CustomButton";
+import ProfileSkeleton from "./ProfileSkeleton";
 
 // Material UI
 import Button from "@material-ui/core/Button";
@@ -138,7 +139,7 @@ class Profile extends Component {
         </Paper>
       )
     ) : (
-      <p>loading...</p>
+      <ProfileSkeleton />
     );
 
     return profileMarkup;

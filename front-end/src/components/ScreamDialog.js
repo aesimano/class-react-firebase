@@ -69,6 +69,7 @@ class ScreamDialog extends Component {
     const { userHandle, screamId } = this.props;
     const newPath = `/users/${userHandle}/scream/${screamId}`;
 
+    // Handle edge case of when we navigate directly to /users/userHandle/scream/screamId.
     if (oldPath === newPath) oldPath = `/users/${userHandle}`;
 
     window.history.pushState(null, null, newPath);

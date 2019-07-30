@@ -6,6 +6,8 @@ import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
 import { getUserData } from "../redux/actions/dataActions";
 import StaticProfile from "../components/StaticProfile";
+import ScreamSkeleton from "../components/ScreamSkeleton";
+import ProfileSkeleton from "../components/ProfileSkeleton";
 
 class User extends Component {
   state = {
@@ -39,7 +41,7 @@ class User extends Component {
     const { handle, screamIdParam } = this.state;
 
     const screamsMarkup = loading ? (
-      <p>Loading data...</p>
+      <ScreamSkeleton />
     ) : screams === null || screams.length === 0 ? (
       <p>No screams from {handle}</p>
     ) : !screamIdParam ? (
@@ -55,7 +57,7 @@ class User extends Component {
     const staticProfileMarkup = this.state.profile ? (
       <StaticProfile profile={this.state.profile} />
     ) : (
-      <p>Loading profile...</p>
+      <ProfileSkeleton />
     );
 
     return (

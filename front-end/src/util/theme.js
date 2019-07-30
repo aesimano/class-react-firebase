@@ -3,29 +3,29 @@ import blueGrey from "@material-ui/core/colors/blueGrey";
 
 export default {
   palette: {
-    primary: {
-      light: orange[200],
-      main: orange[500],
-      dark: orange[700],
-      contrastText: blueGrey[800]
-    },
-    secondary: {
-      light: blueGrey[200],
-      main: blueGrey[400],
-      dark: blueGrey[700]
-    }
     // primary: {
-    //   light: "#33c9dc",
-    //   main: "#00bcd4",
-    //   dark: "#008394",
-    //   contrastText: "#fff"
+    //   light: orange[200],
+    //   main: orange[500],
+    //   dark: orange[700],
+    //   contrastText: blueGrey[800]
     // },
     // secondary: {
-    //   light: "#ff6333",
-    //   main: "#ff3d00",
-    //   dark: "#b22a00",
-    //   contrastText: "#fff"
+    //   light: blueGrey[200],
+    //   main: blueGrey[400],
+    //   dark: blueGrey[700]
     // }
+    primary: {
+      light: "#33c9dc",
+      main: "#00bcd4",
+      dark: "#008394",
+      contrastText: "#fff"
+    },
+    secondary: {
+      light: "#ff6333",
+      main: "#ff3d00",
+      dark: "#b22a00",
+      contrastText: "#fff"
+    }
   },
   typography: {
     useNextVariants: true
